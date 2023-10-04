@@ -1,4 +1,14 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../widgets/user_image.dart';
+
+
+final _firebase=FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -12,7 +22,10 @@ class _AuthScreenState extends State<AuthScreen> {
   var _isLogin=true;
   var _email='';
   var _pass='';
+  var _username='';
   final _formKey=GlobalKey<FormState>();
+  File? _selectedImage;
+  var _isAuthenticating=false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +51,28 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          if(!_isLogin)UserImagePicker(onPicked: (image){
+                            _selectedImage=image;
+                          },),
+                          if(!_isLogin)TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                            ),
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.emailAddress,
+                            autocorrect: false,
+                            textCapitalization: TextCapitalization.none,
+                            validator: (val){
+                              if(val==null||val.trim().isEmpty||val.trim().length<4){
+                                return 'Please enter valid username';
+                              }
+                              else return null;
+                            },
+                            onSaved: (value){
+                              _username=value!;
+                            },
+                          ),
+                          SizedBox(height: 6,),
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: 'Email Address',
@@ -72,13 +107,14 @@ class _AuthScreenState extends State<AuthScreen> {
                             },
                           ),
                           SizedBox(height: 20,),
-                          ElevatedButton(
+                          if(_isAuthenticating)CircularProgressIndicator(),
+                          if(!_isAuthenticating)ElevatedButton(
                               onPressed: _submit,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).colorScheme.primary
                               ),
-                              child: Text(_isLogin?'Login':'Signup')),
-                          TextButton(onPressed: (){
+                              child: Text(_isLogin?'Login':'Signup',style: TextStyle(color: Colors.white),)),
+                          if(!_isAuthenticating)TextButton(onPressed: (){
                             setState(() {
                               _isLogin=!_isLogin;
                             });
@@ -96,11 +132,43 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if(_formKey.currentState!.validate()){
       _formKey.currentState!.save();
-      print(_email);
-      print(_pass);
+
+      try {
+        setState(() {
+          _isAuthenticating=true;
+        });
+        if (_isLogin) {
+          final userCredential = await _firebase.signInWithEmailAndPassword(
+              email: _email, password: _pass);
+
+        }
+        else if(_selectedImage!=null){
+          final userCredential =await _firebase.createUserWithEmailAndPassword(
+              email: _email, password: _pass);
+         final storageRef= FirebaseStorage.instance.ref().child('user_images').child('${userCredential.user!.uid}.jpg');
+         await storageRef.putFile(_selectedImage!);
+         final imageUrl= await storageRef.getDownloadURL();
+         print(imageUrl);
+        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+           'username':_username,
+           'email': _email,
+           'image_url': imageUrl
+         });
+
+        }
+      }
+         on FirebaseAuthException catch(error){
+         print('FIREBASE ERROR ${error}');
+         ScaffoldMessenger.of(context).clearSnackBars();
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Authentication Failed')));
+         setState(() {
+           _isAuthenticating=false;
+         });
+       }
+      }
     }
   }
-}
+
