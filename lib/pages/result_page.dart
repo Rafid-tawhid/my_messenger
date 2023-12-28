@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable, unused_field, unnecessary_brace_in_string_interps, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import '../models/question_answer.dart';
 import '../utils/temp_db.dart';
 import 'question_page.dart';
 

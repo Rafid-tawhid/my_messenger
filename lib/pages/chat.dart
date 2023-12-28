@@ -6,6 +6,7 @@ import 'package:my_messenger/widgets/new_chat_messages.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+  static const String routeName='chats';
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

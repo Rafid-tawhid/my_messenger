@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_messenger/pages/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_messenger/pages/chat.dart';
+import 'package:my_messenger/pages/chat_gpt_page.dart';
 import 'package:my_messenger/pages/dashboard.dart';
 import 'package:my_messenger/pages/question_page.dart';
 
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
         QustionPage.routeName: (context) => QustionPage(),
         ResultPage.routeName: (context) => ResultPage(),
         TranslatorApp.routeName:(context)=>TranslatorApp(),
+        ChatGptPage.routeName:(context)=>ChatGptPage(),
+        ChatScreen.routeName:(context)=>ChatScreen(),
 
       },
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_messenger/pages/chat.dart';
 import 'package:my_messenger/pages/question_page.dart';
 import '../models/quiz_models.dart';
+import '../pages/chat_gpt_page.dart';
 import '../pages/translater_page.dart';
 
 class TopicCard extends StatelessWidget {
@@ -24,11 +26,18 @@ class TopicCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: (){
-            if(topic.name=='Speech Recognition'){
+            if(topic.name=='Language Conversion'){
               Navigator.pushNamed(context,TranslatorApp.routeName);
             }
             if(topic.name=='Interactive Quizzes'){
               Navigator.pushNamed(context,QustionPage.routeName);
+            }
+            if(topic.name=='Common Discussion'){
+              Navigator.pushNamed(context,ChatScreen.routeName);
+            }
+
+            if(topic.name=='Feedback and Support'){
+              Navigator.pushNamed(context,ChatGptPage.routeName);
             }
 
           },
