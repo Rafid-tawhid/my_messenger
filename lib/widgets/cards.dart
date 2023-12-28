@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:my_messenger/pages/chat.dart';
 import 'package:my_messenger/pages/question_page.dart';
 import '../models/quiz_models.dart';
+import '../pages/chat_gpt_page.dart';
+import '../pages/lessions/lessions_step.dart';
 import '../pages/translater_page.dart';
 
 class TopicCard extends StatelessWidget {
   final Topic topic;
+  final Function(String value) onTaap;
 
-  TopicCard({required this.topic});
+  TopicCard({required this.topic,required this.onTaap});
 
 
 
@@ -24,13 +28,7 @@ class TopicCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: (){
-            if(topic.name=='Speech Recognition'){
-              Navigator.pushNamed(context,TranslatorApp.routeName);
-            }
-            if(topic.name=='Interactive Quizzes'){
-              Navigator.pushNamed(context,QustionPage.routeName);
-            }
-
+            onTaap(topic.name);
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,3 +53,4 @@ class TopicCard extends StatelessWidget {
     );
   }
 }
+

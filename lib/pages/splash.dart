@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_messenger/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth.dart';
 import 'dashboard.dart';
@@ -19,6 +23,7 @@ class SplashScreen extends StatelessWidget {
             return const CircularProgressIndicator();
           }
           if(snapshot.hasData){
+            getUserInfo();
             return const Dashboard();
             //return const ChatScreen();
           }
@@ -28,5 +33,23 @@ class SplashScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> getUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    UserModel.name= prefs.getString('username');
+    UserModel.email= prefs.getString('email');
+    UserModel.image= prefs.getString('image_url');
+    var info= await FirebaseFirestore.instance.collection('users').get();
+    final loadedMessage=info.docs;
+    loadedMessage.forEach((element) {
+      if(element['email']==FirebaseAuth.instance.currentUser!.email){
+        UserModel.name=element['username'];
+        UserModel.email=element['email'];
+        UserModel.image=element['image_url'];
+      }
+    });
+    print('info ${info.toString()}');
+
   }
 }

@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../models/user_model.dart';
+
 class MyDrawer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,21 +22,22 @@ class MyDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 30,
+                    radius: 35,
                     backgroundColor: Colors.white,
+                    child: Image.network(UserModel.image??'https://cdn.vectorstock.com/i/preview-1x/17/61/male-avatar-profile-picture-vector-10211761.jpg',height: 50,width: 50,),
                     // You can replace the image with the actual user profile image
                     // backgroundImage: NetworkImage('url_to_profile_image'),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'John Doe',
+                    UserModel.name?? 'John Doe',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    'john.doe@example.com',
+                    UserModel.email?? 'john.doe@example.com',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -55,6 +60,15 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 // Navigate to the settings screen
                 Navigator.pop(context);
+                // Add your navigation logic here
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout, color: Colors.white),
+              title: Text('Logout', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                // Navigate to the settings screen
+                FirebaseAuth.instance.signOut();
                 // Add your navigation logic here
               },
             ),

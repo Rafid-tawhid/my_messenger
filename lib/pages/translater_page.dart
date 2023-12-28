@@ -90,15 +90,15 @@ class _TranslatorAppState extends State<TranslatorApp> {
         centerTitle: true,
         flexibleSpace: Container(
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 50, 46, 165),
+              color: Colors.white,
             )),
         title: const Text(
           'Translator App',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 28),
+              color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 28),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 87, 104, 254),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -265,12 +265,12 @@ class _TranslatorAppState extends State<TranslatorApp> {
                   onPressed: translate,
                   style: ButtonStyle(
                       backgroundColor:
-                      MaterialStatePropertyAll(Colors.indigo.shade900),
+                      MaterialStatePropertyAll(Colors.blue),
                       fixedSize: const MaterialStatePropertyAll(Size(300, 45))),
                   child:isloading?const SizedBox.square(
                     dimension: 20,
                     child: CircularProgressIndicator(color: Colors.white,),
-                  ): const Text('Translate')),
+                  ): const Text('Translate',style:  TextStyle(color: Colors.white),)),
               const SizedBox(
                 height: 30,
               )
