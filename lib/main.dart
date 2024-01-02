@@ -67,7 +67,6 @@ class MyApp extends StatelessWidget {
         TranslatorApp.routeName:(context)=>TranslatorApp(),
         ChatGptPage.routeName:(context)=>ChatGptPage(),
         ChatScreen.routeName:(context)=>ChatScreen(),
-
       },
     );
   }

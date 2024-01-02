@@ -163,13 +163,10 @@ class _AuthScreenState extends State<AuthScreen> {
            'image_url': imageUrl
          });
           final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-// Save an integer value to 'counter' key.
+          // Save an integer value to 'counter' key.
           await prefs.setString('username', _username);
           await prefs.setString('email', _email);
           await prefs.setString('image_url', imageUrl);
-
-
         }
       }
          on FirebaseAuthException catch(error){

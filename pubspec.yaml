@@ -46,6 +46,7 @@ dependencies:
   dash_chat_2:
   chat_gpt_sdk:
   shared_preferences: ^2.2.2
+  voice_to_text: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,10 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>My Messenger</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+    <string>We need your permission</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need your permission</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

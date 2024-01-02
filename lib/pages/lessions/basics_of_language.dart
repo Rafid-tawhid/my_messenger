@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_messenger/pages/lessions/reading_steps.dart';
+import 'package:my_messenger/pages/lessions/speech_demo.dart';
 
 import '../../models/quiz_models.dart';
 import '../../widgets/cards.dart';
@@ -33,6 +34,9 @@ class BasicsOfLanguage extends StatelessWidget {
           return TopicCard(topic: basics[index],onTaap: (value){
             if(value=='Reading'){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ReadingSteps()));
+            }
+            if(value=='Speaking'){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechDemo()));
             }
           },);
         },

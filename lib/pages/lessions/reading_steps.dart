@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/quiz_models.dart';
+import 'basic_reading/parts_of_speech.dart';
 
 final List<Topic> basicsOfReading = [
   Topic(
@@ -37,7 +38,7 @@ class ReadingSteps extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Basics of Reading'), // Customize app bar color
+        title: const Text('Basics of Reading'), // Customize app bar color
       ),
       body: ListView.builder(
         itemCount: basicsOfReading.length,
@@ -52,7 +53,7 @@ class ReadingSteps extends StatelessWidget {
               ),
               title: Text(
                 basicsOfReading[index].name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -65,7 +66,9 @@ class ReadingSteps extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                // Add any action you want when the ListTile is tapped
+                if(basicsOfReading[index].name=='Understand the Basic Parts of Speech'){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PartsOfSpeech()));
+                }
               },
             ),
           );
