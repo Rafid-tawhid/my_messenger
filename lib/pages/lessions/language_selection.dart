@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/quiz_models.dart';
 import '../../widgets/cards.dart';
+import 'basics_of_language.dart';
 
 final List<Topic> languages = [
   Topic(name: 'English', imagePath: 'images/flags/usa.png'),
@@ -35,7 +36,7 @@ class LanguageSelection extends StatelessWidget {
         itemCount: languages.length,
         itemBuilder: (context, index) {
           return TopicCard(topic: languages[index],onTaap: (value){
-
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>BasicsOfLanguage(languages[index].name)));
           },);
         },
       ),
