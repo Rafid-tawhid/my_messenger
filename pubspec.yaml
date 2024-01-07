@@ -47,7 +47,8 @@ dependencies:
   chat_gpt_sdk:
   shared_preferences: ^2.2.2
   voice_to_text: ^1.0.3
-#  text_to_speech: ^0.2.3
+  speech_to_text: ^6.5.1
+  flutter_tts: ^3.8.5
 
 dev_dependencies:
   flutter_test:

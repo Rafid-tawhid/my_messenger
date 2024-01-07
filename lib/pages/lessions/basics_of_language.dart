@@ -40,7 +40,10 @@ class BasicsOfLanguage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechDemo()));
             }
             if(value=='Writing'){
-            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>TextToSpeechApp()));
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));
+            }
+            if(value=='Listening'){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));
             }
           },);
         },
