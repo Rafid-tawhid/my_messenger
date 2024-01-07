@@ -4,6 +4,7 @@ plugins {
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
     id 'com.google.firebase.crashlytics'
+    //id 'org.jetbrains.kotlin.android' version '1.5.30'
 }
 
 def localProperties = new Properties()
