@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
 import 'package:my_messenger/pages/translater_page.dart';
 
@@ -30,7 +31,7 @@ class _DashboardState extends State<Dashboard> {
         title: Text('Education Topics'),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
@@ -52,6 +53,9 @@ class _DashboardState extends State<Dashboard> {
             }
             if(value=='Feedback and Support'){
               Navigator.pushNamed(context,ChatGptPage.routeName);
+            }
+            if(value=='Progress Tracking'){
+              Navigator.pushNamed(context,ProgressTracking.routeName);
             }
           },);
         },

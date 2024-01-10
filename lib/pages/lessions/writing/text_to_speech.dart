@@ -13,6 +13,14 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
 
   FlutterTts _flutterTts=FlutterTts();
   Map? _currentVoice;
+  bool play=false;
+  final _textCon=TextEditingController();
+
+  @override
+  void dispose() {
+    _textCon.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -42,11 +50,51 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Writing Practice'),
+      ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: play?Colors.red:Colors.green,
         onPressed: (){
-          _flutterTts.speak("Hello friends. How are you ?");
+          setState(() {
+            play=true;
+          });
+
+          _flutterTts.speak(_textCon.text==""?"Welcome to Fun Language":_textCon.text).whenComplete((){
+            setState(() {
+              play=false;
+            });
+          });
         },
-        child: Icon(Icons.speaker_phone),
+        child: Icon(Icons.speaker_phone,color: Colors.white,),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+           Align(alignment: Alignment.center, child: Image.asset('images/avater2.gif',height: 150,width: 150,)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Write something then press the button'),
+            ),
+            TextField(
+              maxLines: 10,
+              controller: _textCon,
+              decoration: InputDecoration(
+                helperText: 'Write something...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.grey,
+                    width: 1
+                  )
+                )
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

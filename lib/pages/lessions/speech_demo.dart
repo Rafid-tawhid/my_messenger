@@ -26,14 +26,16 @@ class _MyHomePageState extends State<SpeechDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Speech Demo'),
+        title: const Text('Speaking Practice'),
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
         alignment: Alignment.center,
         child: Column(
           textBaseline: TextBaseline.alphabetic,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+           if(_speech.isNotListening) Image.asset('images/avater.gif',height: 120,width: 120,),
             Text(
                 _speech.isListening
                     ? "Listening...."

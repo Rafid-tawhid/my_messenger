@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:my_messenger/pages/chat.dart';
 import 'package:my_messenger/pages/chat_gpt_page.dart';
 import 'package:my_messenger/pages/dashboard.dart';
+import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
 
 import 'package:my_messenger/pages/result_page.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
         TranslatorApp.routeName:(context)=>TranslatorApp(),
         ChatGptPage.routeName:(context)=>ChatGptPage(),
         ChatScreen.routeName:(context)=>ChatScreen(),
+        ProgressTracking.routeName:(context)=>ProgressTracking(),
       },
     );
   }

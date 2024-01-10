@@ -5,6 +5,7 @@ import 'package:my_messenger/pages/lessions/writing/text_to_speech.dart';
 
 import '../../models/quiz_models.dart';
 import '../../widgets/cards.dart';
+import 'listening_screen.dart';
 
 final List<Topic> basics = [
   Topic(name: 'Reading', imagePath: 'images/flags/reading.png'),
@@ -40,10 +41,11 @@ class BasicsOfLanguage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechDemo()));
             }
             if(value=='Writing'){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));
               //Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));
             }
             if(value=='Listening'){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ListeningScreen()));
             }
           },);
         },
