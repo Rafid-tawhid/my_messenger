@@ -12,6 +12,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
 
 
   FlutterTts _flutterTts=FlutterTts();
+  Map? _currentVoice;
   @override
   void initState() {
     // TODO: implement initState
@@ -22,6 +23,11 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     _flutterTts.getVoices.then((data) {
       try{
         List<Map> _voices=List<Map>.from(data);
+        _voices=_voices.where((_voice) => _voice["name"].contains("en")).toList();
+       setState(() {
+        _currentVoice=_voices.first;
+        setVoice(_currentVoice!);
+       });
       }
       catch(e){
         print(e);
@@ -29,9 +35,20 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     });
   }
 
+  void setVoice(Map voice){
+    _flutterTts.setVoice({"name":voice["name"],"locale":voice["locale"]});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return  Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          _flutterTts.speak("Hello friends. How are you ?");
+        },
+        child: Icon(Icons.speaker_phone),
+      ),
+    );
   }
 
 
