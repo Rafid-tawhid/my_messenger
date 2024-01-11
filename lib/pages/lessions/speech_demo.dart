@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:voice_to_text/voice_to_text.dart';
 
-class SpeechDemo extends StatefulWidget {
-  const SpeechDemo({Key? key}) : super(key: key);
+class SpeackingScreen extends StatefulWidget {
+  const SpeackingScreen({Key? key}) : super(key: key);
 
   @override
-  State<SpeechDemo> createState() => _MyHomePageState();
+  State<SpeackingScreen> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<SpeechDemo> {
+class _MyHomePageState extends State<SpeackingScreen> {
   final VoiceToText _speech = VoiceToText();
   String text = ""; //this is optional, I could get the text directly using speechResult
   @override
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<SpeechDemo> {
                 ? text.isNotEmpty
                 ? text
                 : "Try speaking again"
-                : ""),
+                : "",style: TextStyle(fontSize: 16,fontStyle: FontStyle.italic),),
           ],
         ),
       ),

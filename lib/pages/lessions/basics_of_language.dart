@@ -38,7 +38,7 @@ class BasicsOfLanguage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ReadingSteps()));
             }
             if(value=='Speaking'){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechDemo()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpeackingScreen()));
             }
             if(value=='Writing'){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));

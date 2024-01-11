@@ -68,32 +68,34 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
         },
         child: Icon(Icons.speaker_phone,color: Colors.white,),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-           Align(alignment: Alignment.center, child: Image.asset('images/avater2.gif',height: 150,width: 150,)),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Write something then press the button'),
-            ),
-            TextField(
-              maxLines: 10,
-              controller: _textCon,
-              decoration: InputDecoration(
-                helperText: 'Write something...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.grey,
-                    width: 1
-                  )
-                )
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             Align(alignment: Alignment.center, child: Image.asset('images/avater2.gif',height: 150,width: 150,)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Write something then press the button'),
               ),
-            ),
-          ],
+              TextField(
+                maxLines: 10,
+                controller: _textCon,
+                decoration: InputDecoration(
+                  helperText: 'Write something...',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1
+                    )
+                  )
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
