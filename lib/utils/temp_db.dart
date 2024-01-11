@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/quiz_models.dart';
 
 
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 
 
 final List<Topic> topics = [

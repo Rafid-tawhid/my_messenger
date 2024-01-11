@@ -29,8 +29,8 @@ class _ChatScreenState extends State<ChatScreen> {
       actions: [
         IconButton(onPressed: _logout, icon: Icon(Icons.exit_to_app))
       ],),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           Expanded(child: ChatMessage()),
           NewMessage()
         ],

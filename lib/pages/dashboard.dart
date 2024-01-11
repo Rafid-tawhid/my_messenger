@@ -52,7 +52,7 @@ class _DashboardState extends State<Dashboard> {
               Navigator.pushNamed(context,ChatScreen.routeName);
             }
             if(value=='Feedback and Support'){
-              Navigator.pushNamed(context,ChatGptPage.routeName);
+              Navigator.pushNamed(context,TranslateScreen.routeName);
             }
             if(value=='Progress Tracking'){
               Navigator.pushNamed(context,ProgressTracking.routeName);

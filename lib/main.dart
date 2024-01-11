@@ -61,13 +61,12 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: SplashScreen.routeName,
       routes: {
-        SplashScreen.routeName:(context)=>SplashScreen(),
-        Dashboard.routeName:(context)=>Dashboard(),
+        SplashScreen.routeName:(context)=>const SplashScreen(),
+        Dashboard.routeName:(context)=>const Dashboard(),
         QustionPage.routeName: (context) => QustionPage(),
         ResultPage.routeName: (context) => ResultPage(),
-        TranslatorApp.routeName:(context)=>TranslatorApp(),
-        ChatGptPage.routeName:(context)=>ChatGptPage(),
-        ChatScreen.routeName:(context)=>ChatScreen(),
+        TranslatorApp.routeName:(context)=>const TranslatorApp(),
+        TranslateScreen.routeName:(context)=>const TranslateScreen(),
         ProgressTracking.routeName:(context)=>ProgressTracking(),
       },
     );
