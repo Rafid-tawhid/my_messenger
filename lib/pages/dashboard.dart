@@ -8,6 +8,8 @@ import '../widgets/cards.dart';
 import '../widgets/drawer.dart';
 import 'chat.dart';
 import 'chat_gpt_page.dart';
+import 'lessions/english_word.dart';
+import 'lessions/grammer_guides.dart';
 import 'lessions/lessions_step.dart';
 
 class Dashboard extends StatefulWidget {
@@ -49,13 +51,16 @@ class _DashboardState extends State<Dashboard> {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>LessionsSteps()));
             }
             if(value=='Common Discussion'){
-              Navigator.pushNamed(context,ChatScreen.routeName);
+           //   Navigator.pushNamed(context,ChatScreen.routeName);
             }
             if(value=='Feedback and Support'){
-              Navigator.pushNamed(context,TranslateScreen.routeName);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatGPTApp()));
             }
             if(value=='Progress Tracking'){
               Navigator.pushNamed(context,ProgressTracking.routeName);
+            }
+            if(value=='Grammar Guides'){
+              Navigator.pushNamed(context,GrammarGuideScreen.routeName);
             }
           },);
         },

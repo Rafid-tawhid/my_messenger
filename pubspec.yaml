@@ -54,6 +54,7 @@ dependencies:
   url_launcher: ^6.2.3
   http:
   chat_bubbles:
+  english_words: ^4.0.0
 
 
 dev_dependencies:

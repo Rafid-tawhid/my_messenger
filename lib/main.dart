@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:my_messenger/pages/chat.dart';
 import 'package:my_messenger/pages/chat_gpt_page.dart';
 import 'package:my_messenger/pages/dashboard.dart';
+import 'package:my_messenger/pages/lessions/english_word.dart';
+import 'package:my_messenger/pages/lessions/grammer_guides.dart';
 import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
 
@@ -68,6 +70,8 @@ class MyApp extends StatelessWidget {
         TranslatorApp.routeName:(context)=>const TranslatorApp(),
         TranslateScreen.routeName:(context)=>const TranslateScreen(),
         ProgressTracking.routeName:(context)=>ProgressTracking(),
+        GrammarGuideScreen.routeName:(context)=>GrammarGuideScreen(),
+
       },
     );
   }
