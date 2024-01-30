@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_messenger/pages/chat.dart';
 import 'package:my_messenger/pages/question_page.dart';
 import '../models/quiz_models.dart';
-import '../pages/chat_gpt_page.dart';
+import '../pages/translation_screens.dart';
 import '../pages/lessions/lessions_step.dart';
 import '../pages/translater_page.dart';
 

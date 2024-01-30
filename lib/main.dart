@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:my_messenger/pages/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_messenger/pages/chat.dart';
-import 'package:my_messenger/pages/chat_gpt_page.dart';
+import 'package:my_messenger/pages/translation_screens.dart';
 import 'package:my_messenger/pages/dashboard.dart';
+import 'package:my_messenger/pages/lessions/chat_gpt_screen.dart';
+import 'package:my_messenger/pages/lessions/grammer_guides.dart';
 import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
 
@@ -43,6 +46,24 @@ void main() async {
       )
   );
   runApp(MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
+
 }
 
 class MyApp extends StatelessWidget {
@@ -68,6 +89,9 @@ class MyApp extends StatelessWidget {
         TranslatorApp.routeName:(context)=>const TranslatorApp(),
         TranslateScreen.routeName:(context)=>const TranslateScreen(),
         ProgressTracking.routeName:(context)=>ProgressTracking(),
+        GrammarGuideScreen.routeName:(context)=>GrammarGuideScreen(),
+        ChatScreen.routeName:(context)=>ChatScreen(),
+
       },
     );
   }

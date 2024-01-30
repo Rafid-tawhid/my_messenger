@@ -7,7 +7,9 @@ import '../utils/temp_db.dart';
 import '../widgets/cards.dart';
 import '../widgets/drawer.dart';
 import 'chat.dart';
-import 'chat_gpt_page.dart';
+import 'translation_screens.dart';
+import 'lessions/chat_gpt_screen.dart';
+import 'lessions/grammer_guides.dart';
 import 'lessions/lessions_step.dart';
 
 class Dashboard extends StatefulWidget {
@@ -28,7 +30,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text('Education Topics'),
+        title: const Text('Education Topics'),
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -49,13 +51,16 @@ class _DashboardState extends State<Dashboard> {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>LessionsSteps()));
             }
             if(value=='Common Discussion'){
-              Navigator.pushNamed(context,ChatScreen.routeName);
+             Navigator.pushNamed(context,ChatScreen.routeName);
             }
             if(value=='Feedback and Support'){
-              Navigator.pushNamed(context,TranslateScreen.routeName);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatGPTApp()));
             }
             if(value=='Progress Tracking'){
               Navigator.pushNamed(context,ProgressTracking.routeName);
+            }
+            if(value=='Grammar Guides'){
+              Navigator.pushNamed(context,GrammarGuideScreen.routeName);
             }
           },);
         },

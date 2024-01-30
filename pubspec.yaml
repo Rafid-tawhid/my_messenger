@@ -54,6 +54,9 @@ dependencies:
   url_launcher: ^6.2.3
   http:
   chat_bubbles:
+  english_words: ^4.0.0
+  flutter_easyloading: ^3.0.5
+  youtube_player_flutter: ^8.1.2
 
 
 dev_dependencies:

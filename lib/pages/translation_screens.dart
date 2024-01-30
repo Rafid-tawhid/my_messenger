@@ -34,7 +34,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ChatGPT App'),
+        title: const Text('ChatGPT App 2'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -133,7 +133,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
 
   void sendMsg() async {
     String text = controller.text;
-    String apiKey = "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";
+    String apiKey = "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";
     controller.clear();
     try {
       if (text.isNotEmpty) {
