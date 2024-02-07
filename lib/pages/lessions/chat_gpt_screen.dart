@@ -10,10 +10,7 @@ class ChatGPTApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ChatScreenGPT(),
-    );
+    return ChatScreenGPT();
   }
 }
 
@@ -33,7 +30,7 @@ class _ChatScreenGPTState extends State<ChatScreenGPT> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ChatGPT App'),
+        title: const Text('Chat Bot'),
       ),
       body: Column(
         children: [
@@ -105,9 +102,11 @@ class _ChatScreenGPTState extends State<ChatScreenGPT> {
   Future<void> _sendMessage() async {
     final String userMessage = _textController.text;
     if (userMessage.isNotEmpty) {
+      EasyLoading.show();
       final String assistantMessage = await chatGPTAPI(userMessage);
+      EasyLoading.dismiss();
       setState(() {
-        _messages.add({'role': UserModel.name??'Rafid', 'content': userMessage});
+       // _messages.add({'role': UserModel.name??'Rafid', 'content': userMessage});
         _messages.add({'role': 'assistant', 'content': assistantMessage});
         _textController.clear();
       });
@@ -115,9 +114,11 @@ class _ChatScreenGPTState extends State<ChatScreenGPT> {
   }
 
   Future<String> chatGPTAPI(String prompt) async {
+    _messages.clear();
     _messages.add({'role': 'user', 'content': prompt});
     try {
       EasyLoading.show();
+      print('_messages ${_messages.toString()}');
       final res = await http.post(
         Uri.parse('https://api.openai.com/v1/chat/completions'),
         headers: {
@@ -130,12 +131,14 @@ class _ChatScreenGPTState extends State<ChatScreenGPT> {
         }),
       );
       EasyLoading.dismiss();
-
+      print('res.body ${res.body.toString()}');
       if (res.statusCode == 200) {
         String content = jsonDecode(res.body)['choices'][0]['message']['content'];
         content = content.trim();
 
-        _messages.add({'role': 'assistant', 'content': content});
+
+
+        //_messages.add({'role': 'assistant', 'content': content});
         return content;
       }
       return 'An internal error occurred';

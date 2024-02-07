@@ -16,13 +16,13 @@ class ChatMessage extends StatelessWidget{
         stream: FirebaseFirestore.instance.collection('chat').orderBy('createdAt',descending: true).snapshots(),
         builder: (context,snapshot){
           if(snapshot.connectionState==ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(),);
+            return const Center(child: CircularProgressIndicator(),);
           }
           else if(snapshot.data!.docs.isEmpty){
             return Center(child: Text('No message..'),);
           }
           else if(snapshot.hasError){
-            return Center(child: Text('Something went wrong.'),);
+            return const Center(child: Text('Something went wrong.'),);
           }
           else {
             final loadedMessage=snapshot.data!.docs;

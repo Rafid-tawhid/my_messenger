@@ -46,7 +46,6 @@ void main() async {
       )
   );
   runApp(MyApp());
-  configLoading();
 }
 
 void configLoading() {
@@ -74,6 +73,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
 
