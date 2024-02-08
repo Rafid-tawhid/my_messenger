@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ListeningScreen extends StatefulWidget {
   @override
@@ -7,24 +8,14 @@ class ListeningScreen extends StatefulWidget {
 }
 
 class _ListeningScreenState extends State<ListeningScreen> {
-  List<AudioPlayer> audioPlayers = [
-    AudioPlayer(),
-    AudioPlayer(),
-    AudioPlayer(),
-  ];
+  AudioPlayer? _currentPlayer;
+  String? _currentUrl;
+
   List<String> audioUrls = [
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
   ];
-
-  @override
-  void dispose() {
-    for (var player in audioPlayers) {
-      player.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +24,19 @@ class _ListeningScreenState extends State<ListeningScreen> {
         title: Text('Listening Screen'),
       ),
       body: ListView.builder(
-        itemCount: audioPlayers.length,
+        itemCount: audioUrls.length,
         itemBuilder: (context, index) {
+          final url = audioUrls[index];
           return ListTile(
             title: Text('Track ${index + 1}'),
             trailing: IconButton(
-              icon: Icon(
-                audioPlayers[index].state == PlayerState.playing
-                    ? Icons.pause
-                    : Icons.play_arrow,
-              ),
-              onPressed: () {
-                playPauseTrack(index);
+              icon: Icon(_currentUrl == url && _currentPlayer?.state == PlayerState.playing
+                  ? Icons.pause
+                  : Icons.play_arrow),
+              onPressed: () async {
+                EasyLoading.show();
+                await _playPauseTrack(url);
+                EasyLoading.dismiss();
               },
             ),
           );
@@ -53,12 +45,29 @@ class _ListeningScreenState extends State<ListeningScreen> {
     );
   }
 
-  Future<void> playPauseTrack(int index) async {
-    if (audioPlayers[index].state == PlayerState.playing) {
-      await audioPlayers[index].pause();
+  Future<void> _playPauseTrack(String url) async {
+    if (_currentUrl == url && _currentPlayer?.state == PlayerState.playing) {
+      await _currentPlayer!.pause();
     } else {
-      await audioPlayers[index].play(UrlSource(audioUrls[index]));
+      // Stop the current player if it's playing
+      if (_currentPlayer != null && _currentPlayer!.state == PlayerState.playing) {
+        await _currentPlayer!.stop();
+      }
+
+      // Create a new player for the selected track
+      final player = AudioPlayer();
+      await player.play(UrlSource(url));
+
+      setState(() {
+        _currentPlayer = player;
+        _currentUrl = url;
+      });
     }
-    setState(() {}); // Refresh UI
+  }
+
+  @override
+  void dispose() {
+    _currentPlayer?.dispose();
+    super.dispose();
   }
 }
