@@ -11,7 +11,7 @@ class SpeechSampleApp extends StatefulWidget {
 class _SpeechSampleAppState extends State<SpeechSampleApp> {
 
 
-  FlutterTts _flutterTts=FlutterTts();
+  final FlutterTts _flutterTts=FlutterTts();
   Map? _currentVoice;
   bool play=false;
   final _textCon=TextEditingController();
@@ -66,7 +66,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
             });
           });
         },
-        child: Icon(Icons.speaker_phone,color: Colors.white,),
+        child: const Icon(Icons.speaker_phone,color: Colors.white,),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -76,8 +76,8 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
              Align(alignment: Alignment.center, child: Image.asset('images/avater2.gif',height: 150,width: 150,)),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text('Write something then press the button'),
               ),
               TextField(
@@ -87,7 +87,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
                   helperText: 'Write something...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.grey,
                       width: 1
                     )

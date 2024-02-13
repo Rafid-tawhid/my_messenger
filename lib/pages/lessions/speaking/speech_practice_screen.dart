@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:voice_to_text/voice_to_text.dart';
 
+import 'my_speaking_practices_list.dart';
+
 class SpeackingScreen extends StatefulWidget {
   const SpeackingScreen({Key? key}) : super(key: key);
 
@@ -10,6 +12,7 @@ class SpeackingScreen extends StatefulWidget {
 
 class _MyHomePageState extends State<SpeackingScreen> {
   final VoiceToText _speech = VoiceToText();
+  List<String> speechList=[];
   String text = ""; //this is optional, I could get the text directly using speechResult
   @override
   void initState() {
@@ -27,6 +30,11 @@ class _MyHomePageState extends State<SpeackingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Speaking Practice'),
+        actions: [
+          IconButton(onPressed: (){
+            print('object');
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MySpeakingPractices(speechList)));
+        }, icon: const Icon(Icons.list))],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -35,7 +43,7 @@ class _MyHomePageState extends State<SpeackingScreen> {
           textBaseline: TextBaseline.alphabetic,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-           if(_speech.isNotListening) Image.asset('images/avater.gif',height: 120,width: 120,),
+            if(_speech.isNotListening) Image.asset('images/avater.gif',height: 120,width: 120,),
             Text(
                 _speech.isListening
                     ? "Listening...."
@@ -46,7 +54,13 @@ class _MyHomePageState extends State<SpeackingScreen> {
                 ? text.isNotEmpty
                 ? text
                 : "Try speaking again"
-                : "",style: TextStyle(fontSize: 16,fontStyle: FontStyle.italic),),
+                : "",style: const TextStyle(fontSize: 16,fontStyle: FontStyle.italic),textAlign: TextAlign.justify,),
+            if(text.isNotEmpty)ElevatedButton(onPressed: (){
+              speechList.add(text);
+              setState(() {
+                text='';
+              });
+            }, child: Text('Save')),
           ],
         ),
       ),

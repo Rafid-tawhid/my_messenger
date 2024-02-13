@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_messenger/pages/lessions/reading_steps.dart';
-import 'package:my_messenger/pages/lessions/speech_demo.dart';
+import 'package:my_messenger/pages/lessions/speaking/speech_practice_screen.dart';
 import 'package:my_messenger/pages/lessions/writing/text_to_speech.dart';
-
 import '../../models/quiz_models.dart';
 import '../../widgets/cards.dart';
 import 'listening_screen.dart';
@@ -39,6 +38,7 @@ class BasicsOfLanguage extends StatelessWidget {
             }
             if(value=='Speaking'){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpeackingScreen()));
+
             }
             if(value=='Writing'){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>SpeechSampleApp()));

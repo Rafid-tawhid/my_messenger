@@ -21,23 +21,28 @@ class _ListeningScreenState extends State<ListeningScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Listening Screen'),
+        title: const Text('Listening Screen'),
       ),
       body: ListView.builder(
         itemCount: audioUrls.length,
         itemBuilder: (context, index) {
           final url = audioUrls[index];
-          return ListTile(
-            title: Text('Track ${index + 1}'),
-            trailing: IconButton(
-              icon: Icon(_currentUrl == url && _currentPlayer?.state == PlayerState.playing
-                  ? Icons.pause
-                  : Icons.play_arrow),
-              onPressed: () async {
-                EasyLoading.show();
-                await _playPauseTrack(url);
-                EasyLoading.dismiss();
-              },
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 8),
+            child: Card(
+              child: ListTile(
+                title: Text('Track ${index + 1}'),
+                trailing: IconButton(
+                  icon: Icon(_currentUrl == url && _currentPlayer?.state == PlayerState.playing
+                      ? Icons.pause
+                      : Icons.play_arrow),
+                  onPressed: () async {
+                    EasyLoading.show();
+                    await _playPauseTrack(url);
+                    EasyLoading.dismiss();
+                  },
+                ),
+              ),
             ),
           );
         },

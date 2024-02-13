@@ -15,6 +15,7 @@ import 'package:my_messenger/pages/result_page.dart';
 import 'package:my_messenger/pages/splash.dart';
 import 'package:my_messenger/pages/translater_page.dart';
 
+
 final configurations = Configurations();
 
 class Configurations {

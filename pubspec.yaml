@@ -57,6 +57,12 @@ dependencies:
   english_words: ^4.0.0
   flutter_easyloading: ^3.0.5
   audioplayers: ^5.2.1
+  path: ^1.8.0
+  permission_handler: ^11.2.1
+  record: ^5.0.4
+  flutter_sound: ^9.2.13
+
+
 
 
 dev_dependencies:
