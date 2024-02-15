@@ -11,10 +11,14 @@ class _ListeningScreenState extends State<ListeningScreen> {
   AudioPlayer? _currentPlayer;
   String? _currentUrl;
 
+  // List<String> audioUrls = [
+  //   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  //   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+  //   "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+  // ];
   List<String> audioUrls = [
-    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    "audio/sound1.mp3",
+    "audio/sound2.mp3"
   ];
 
   @override
@@ -61,7 +65,7 @@ class _ListeningScreenState extends State<ListeningScreen> {
 
       // Create a new player for the selected track
       final player = AudioPlayer();
-      await player.play(UrlSource(url));
+      await player.play(AssetSource(url));
 
       setState(() {
         _currentPlayer = player;
