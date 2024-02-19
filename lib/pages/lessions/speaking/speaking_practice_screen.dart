@@ -133,20 +133,20 @@ class _MyHomePageState extends State<SpeackingScreen> {
 
 
 // Assuming you have a function to retrieve the MP3 file.
-  Future<File> getMP3File() async {
-    final url = 'https://www.example.com/example.mp3';
-    final response = await http.get(url);
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/example.mp3');
-    await file.writeAsBytes(response.bodyBytes);
-    return file;
-  }
-
-// Example usage
-  void uploadMP3File() async {
-    File mp3File = await getMP3File();
-    String downloadUrl = await uploadFile(mp3File);
-    print("Download URL: $downloadUrl");
-  }
+//   Future<File> getMP3File() async {
+//     final url = 'https://www.example.com/example.mp3';
+//     final response = await http.get(url);
+//     final directory = await getApplicationDocumentsDirectory();
+//     final file = File('${directory.path}/example.mp3');
+//     await file.writeAsBytes(response.bodyBytes);
+//     return file;
+//   }
+//
+// // Example usage
+//   void uploadMP3File() async {
+//     File mp3File = await getMP3File();
+//     String downloadUrl = await uploadFile(mp3File);
+//     print("Download URL: $downloadUrl");
+//   }
 
 }
