@@ -14,6 +14,8 @@ import 'package:my_messenger/pages/question_page.dart';
 import 'package:my_messenger/pages/result_page.dart';
 import 'package:my_messenger/pages/splash.dart';
 import 'package:my_messenger/pages/translater_page.dart';
+import 'package:my_messenger/providers/speech_provider.dart';
+import 'package:provider/provider.dart';
 
 
 final configurations = Configurations();
@@ -72,28 +74,32 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      builder: EasyLoading.init(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>SpeechProvider())
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        builder: EasyLoading.init(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        initialRoute: SplashScreen.routeName,
+        routes: {
+          SplashScreen.routeName:(context)=>const SplashScreen(),
+          Dashboard.routeName:(context)=>const Dashboard(),
+          QustionPage.routeName: (context) => QustionPage(),
+          ResultPage.routeName: (context) => ResultPage(),
+          TranslatorApp.routeName:(context)=>const TranslatorApp(),
+          TranslateScreen.routeName:(context)=>const TranslateScreen(),
+          ProgressTracking.routeName:(context)=>ProgressTracking(),
+          GrammarGuideScreen.routeName:(context)=>GrammarGuideScreen(),
+          ChatScreen.routeName:(context)=>ChatScreen(),
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        },
       ),
-      initialRoute: SplashScreen.routeName,
-      routes: {
-        SplashScreen.routeName:(context)=>const SplashScreen(),
-        Dashboard.routeName:(context)=>const Dashboard(),
-        QustionPage.routeName: (context) => QustionPage(),
-        ResultPage.routeName: (context) => ResultPage(),
-        TranslatorApp.routeName:(context)=>const TranslatorApp(),
-        TranslateScreen.routeName:(context)=>const TranslateScreen(),
-        ProgressTracking.routeName:(context)=>ProgressTracking(),
-        GrammarGuideScreen.routeName:(context)=>GrammarGuideScreen(),
-        ChatScreen.routeName:(context)=>ChatScreen(),
-
-      },
     );
   }
 }
