@@ -173,18 +173,18 @@ packages:
     dependency: "direct main"
     description:
       name: chat_gpt_flutter
-      sha256: "38d56435c16e9d8743fcdcc9d361a315e6c0e15b4eb91a8638cca235ffbb03bc"
+      sha256: "7878788a3ef80de0bb0496a9154ad49bb097c85524aa4a823478c70a1254122f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.13"
+    version: "1.0.16"
   chat_gpt_sdk:
     dependency: "direct main"
     description:
       name: chat_gpt_sdk
-      sha256: "7c43dd508d3e70ea4bbf237721992c631b094d2ea5744b2d8b56c7cb5003e455"
+      sha256: "3f78ebcd66cd22ed2407f4e69e7a612552670719382ab089e040338aa9d5aec0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.2.8"
   checked_yaml:
     dependency: transitive
     description:
@@ -301,10 +301,18 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: "7d328c4d898a61efc3cd93655a0955858e29a0aa647f0f9e02d59b3bb275e2e8"
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.6"
+    version: "5.4.1"
+  dio_cache_interceptor:
+    dependency: transitive
+    description:
+      name: dio_cache_interceptor
+      sha256: fb7905c0d12075d8786a6b63bffd64ae062d053f682cfaf28d145a2686507308
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.0"
   english_words:
     dependency: "direct main"
     description:
@@ -576,6 +584,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  free_english_dictionary:
+    dependency: "direct main"
+    description:
+      name: free_english_dictionary
+      sha256: "79ae8f405ec5683af992ae6374d7933fdf7b67e940ae5509a73ed8aebb43551b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   glob:
     dependency: transitive
     description:
@@ -596,10 +612,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      sha256: a2bbf9d017fcced29139daa8ed2bba4ece450ab222871df93ca9eec6f80c34ba
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.6"
+    version: "1.2.0"
   http_parser:
     dependency: transitive
     description:
@@ -932,10 +948,10 @@ packages:
     dependency: transitive
     description:
       name: pretty_dio_logger
-      sha256: "948f7eeb36e7aa0760b51c1a8e3331d4b21e36fabd39efca81f585ed93893544"
+      sha256: "00b80053063935cf9a6190da344c5373b9d0e92da4c944c878ff2fbef0ef6dc2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0-beta-1"
+    version: "1.3.1"
   provider:
     dependency: "direct main"
     description:
@@ -1209,10 +1225,10 @@ packages:
     dependency: "direct main"
     description:
       name: translator
-      sha256: "225ee22fc482736c593be5c232c0c5884b16d7cc42945c51ac73d9a0441dddcc"
+      sha256: "03521d194365e758c66444a3b03005733e1daf0cd3de9c63257bf82b1a4e2ba1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.7"
+    version: "1.0.0"
   typed_data:
     dependency: transitive
     description:
@@ -1398,5 +1414,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.2.3 <4.0.0"
   flutter: ">=3.16.0"

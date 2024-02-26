@@ -7,6 +7,7 @@ import '../utils/temp_db.dart';
 import '../widgets/cards.dart';
 import '../widgets/drawer.dart';
 import 'chat.dart';
+import 'lessions/vocabolary_builder.dart';
 import 'translation_screens.dart';
 import 'lessions/chat_gpt_screen.dart';
 import 'lessions/grammer_guides.dart';
@@ -49,6 +50,10 @@ class _DashboardState extends State<Dashboard> {
             }
             if(value=='Interactive Lessons'){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>LessionsSteps()));
+            }
+            if(value=='Flashcards and Vocabulary Builders'){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>DictionaryApp()));
             }
             if(value=='Common Discussion'){
              Navigator.pushNamed(context,ChatScreen.routeName);
