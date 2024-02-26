@@ -7,6 +7,7 @@ import '../utils/temp_db.dart';
 import '../widgets/cards.dart';
 import '../widgets/drawer.dart';
 import 'chat.dart';
+import 'lessions/record_my_audio.dart';
 import 'lessions/vocabolary_builder.dart';
 import 'translation_screens.dart';
 import 'lessions/chat_gpt_screen.dart';
@@ -66,6 +67,10 @@ class _DashboardState extends State<Dashboard> {
             }
             if(value=='Grammar Guides'){
               Navigator.pushNamed(context,GrammarGuideScreen.routeName);
+            }
+            if(value=='Social Features'){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>VoiceRecorder()));
+
             }
           },);
         },
