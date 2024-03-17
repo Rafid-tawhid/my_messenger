@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 
 class DictionaryApp extends StatefulWidget {
   @override
@@ -10,8 +12,13 @@ class DictionaryApp extends StatefulWidget {
 class _DictionaryAppState extends State<DictionaryApp> {
   TextEditingController _textEditingController = TextEditingController();
   String _meaning = '';
+  bool _isLoading = false;
 
   Future<void> getWordMeaning(String word) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     String apiUrl =
         'https://api.dictionaryapi.dev/api/v2/entries/en_US/$word';
     try {
@@ -20,21 +27,26 @@ class _DictionaryAppState extends State<DictionaryApp> {
         final List<dynamic> meanings = jsonDecode(response.body);
         if (meanings.isNotEmpty) {
           setState(() {
-            _meaning = meanings[0]['meanings'][0]['definitions'][0]['definition'];
+            _meaning =
+            meanings[0]['meanings'][0]['definitions'][0]['definition'];
+            _isLoading = false;
           });
         } else {
           setState(() {
             _meaning = 'No meaning found for this word.';
+            _isLoading = false;
           });
         }
       } else {
         setState(() {
           _meaning = 'Error: ${response.statusCode}';
+          _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
         _meaning = 'Error: $e';
+        _isLoading = false;
       });
     }
   }
@@ -55,20 +67,28 @@ class _DictionaryAppState extends State<DictionaryApp> {
               decoration: InputDecoration(
                 labelText: 'Enter a word',
                 border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
               ),
+              maxLength: 20,
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: _isLoading
+                  ? null
+                  : () {
                 String word = _textEditingController.text.trim();
                 if (word.isNotEmpty) {
                   getWordMeaning(word);
                 }
               },
-              child: Text('Get Meaning'),
+              child: _isLoading
+                  ? CircularProgressIndicator()
+                  : Text('Get Meaning'),
             ),
             SizedBox(height: 20),
-            Text(
+            _isLoading
+                ? CircularProgressIndicator()
+                : Text(
               _meaning,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
@@ -126,7 +146,9 @@ class MeaningfulWordsList extends StatelessWidget {
         return ListTile(
           title: Text(words[index]),
           onTap: () {
+            EasyLoading.show();
             _showWordMeaningDialog(context, words[index]);
+            EasyLoading.dismiss();
           },
         );
       },
