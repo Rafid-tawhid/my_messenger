@@ -69,7 +69,7 @@ class _DashboardState extends State<Dashboard> {
               Navigator.pushNamed(context,GrammarGuideScreen.routeName);
             }
             if(value=='Social Features'){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>VoiceRecorderScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>RecorderExample()));
 
             }
           },);

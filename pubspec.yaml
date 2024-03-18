@@ -65,7 +65,7 @@ dependencies:
   provider: ^6.1.1
   path_provider: ^2.1.2
   free_english_dictionary: ^0.0.3
-  just_audio: ^0.9.36
+  flutter_voice_recorder: ^0.0.2
 
 
 
