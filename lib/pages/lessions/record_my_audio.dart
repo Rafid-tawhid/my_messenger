@@ -1,57 +1,42 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:just_audio/just_audio.dart';
 
-class VoiceRecorder extends StatefulWidget {
+class VoiceRecorderScreen extends StatefulWidget {
   @override
-  _VoiceRecorderState createState() => _VoiceRecorderState();
+  _VoiceRecorderScreenState createState() => _VoiceRecorderScreenState();
 }
 
-class _VoiceRecorderState extends State<VoiceRecorder> {
-  late AudioPlayer _audioPlayer;
-  late AudioRecorder _audioRecorder;
-  String _filePath = '';
+class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
+  final AudioRecorder _audioRecorder = AudioRecorder();
+
+  bool _isRecording = false;
 
   @override
-  void initState() {
-    super.initState();
-    _audioPlayer = AudioPlayer();
-    _audioRecorder = AudioRecorder();
+  void dispose() {
+    _audioRecorder.dispose();
+    super.dispose();
   }
 
   Future<void> _startRecording() async {
     try {
-      Directory appDir = await getApplicationDocumentsDirectory();
-      _filePath = '${appDir.path}/recording.mp3';
-      await _audioRecorder.startRecord(_filePath);
+      await _audioRecorder.startRecording();
+      setState(() {
+        _isRecording = true;
+      });
     } catch (e) {
-      print('Error recording: $e');
+      print('Error starting recording: $e');
     }
   }
 
   Future<void> _stopRecording() async {
     try {
-      await _audioRecorder.stopRecord();
+      await _audioRecorder.stopRecording();
+      setState(() {
+        _isRecording = false;
+      });
     } catch (e) {
       print('Error stopping recording: $e');
     }
-  }
-
-  Future<void> _playRecording() async {
-    try {
-      await _audioPlayer.play(DeviceFileSource(_filePath));
-    } catch (e) {
-      print('Error playing recording: $e');
-    }
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    _audioRecorder.dispose();
-    super.dispose();
   }
 
   @override
@@ -63,18 +48,25 @@ class _VoiceRecorderState extends State<VoiceRecorder> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: _startRecording,
-              child: Text('Start Recording'),
+          children: [
+            IconButton(
+              icon: Icon(_isRecording ? Icons.stop : Icons.mic),
+              onPressed: () {
+                if (_isRecording) {
+                  _stopRecording();
+                } else {
+                  _startRecording();
+                }
+              },
             ),
+            SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _stopRecording,
-              child: Text('Stop Recording'),
-            ),
-            ElevatedButton(
-              onPressed: _playRecording,
-              child: Text('Play Recording'),
+              onPressed: () async {
+                if (!_isRecording) {
+                  await _audioRecorder.playRecordedFile();
+                }
+              },
+              child: Text('Play Recorded Audio'),
             ),
           ],
         ),
@@ -84,35 +76,26 @@ class _VoiceRecorderState extends State<VoiceRecorder> {
 }
 
 class AudioRecorder {
-  late String _filePath;
-  late Process _process;
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
-  Future<void> startRecord(String filePath) async {
-    _filePath = filePath;
-    _process = await Process.start(
-      'ffmpeg',
-      [
-        '-f',
-        'alsa',
-        '-ac',
-        '1',
-        '-i',
-        'default',
-        _filePath,
-      ],
-    );
+  Future<void> startRecording() async {
+    // Add your code to start recording audio
+    print('Recording started');
   }
 
-  Future<void> stopRecord() async {
-    _process.kill(ProcessSignal.sigterm);
-    await _process.exitCode;
+  Future<void> stopRecording() async {
+    // Add your code to stop recording audio
+    print('Recording stopped');
   }
 
-  void dispose() {}
+  Future<void> playRecordedFile() async {
+    // Add your code to play the recorded audio file
+    print('Playing recorded audio');
+  }
+
+  void dispose() {
+    _audioPlayer.dispose();
+  }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: VoiceRecorder(),
-  ));
-}
+
