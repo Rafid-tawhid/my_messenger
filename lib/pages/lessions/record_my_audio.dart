@@ -62,6 +62,7 @@ class RecorderExampleState extends State<RecorderExample> {
 
 
   Future<void> _startRecording() async{
+    print('START IS CALLING ');
     try{
       if(await audioRecord.hasPermission()){
         print('PERMISSION GRANTED');
@@ -72,31 +73,36 @@ class RecorderExampleState extends State<RecorderExample> {
       }
     }
         catch(e){
-
+          print('ERROR $e');
         }
   }
 
-  Future<void> _stopRecording() async{
-    try{
-      String? path=await audioRecord.stop();
+     Future<void> _stopRecording() async {
+       print('STOP IS CALLING ');
+       try {
+         String? path = await audioRecord.stop();
 
-      setState(() {
-        isRecording=false;
-        recordedPath=path!;
+         if (path != null) {
+           setState(() {
+             isRecording = false;
+             recordedPath = path;
+           });
+           print('PATH $recordedPath');
+         } else {
+           print('ERROR: Path is null');
+         }
+       } catch (e) {
+         print('ERROR $e');
+       }
+     }
 
-      });
-    }
-        catch(e){
-
-        }
-  }
 
   Future<void> _play() async {
     try{
       await audioPlayer.play(UrlSource(recordedPath!));
     }
     catch(e){
-      
+
     }
   }
 }
