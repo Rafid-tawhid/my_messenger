@@ -9,49 +9,28 @@ import 'package:voice_to_text/voice_to_text.dart';
 import 'package:record/record.dart';
 import 'my_speaking_practices_list.dart';
 
-class SpeackingScreen extends StatefulWidget {
-  const SpeackingScreen({Key? key}) : super(key: key);
+
+class SpeakingScreen extends StatefulWidget {
+  const SpeakingScreen({Key? key}) : super(key: key);
 
   @override
-  State<SpeackingScreen> createState() => _MyHomePageState();
+  State<SpeakingScreen> createState() => _SpeakingScreenState();
 }
 
-class _MyHomePageState extends State<SpeackingScreen> {
+class _SpeakingScreenState extends State<SpeakingScreen> {
   final VoiceToText _speech = VoiceToText();
   List<String> speechList=[];
-  String text = "";
-  //this is optional, I could get the text directly using speechResult
-  late AudioPlayer _audioPlayer;
-  late String _filePath;
-  final audioRecord=AudioRecorder();
+  String text = ""; //this is optional, I could get the text directly using speechResult
+
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
-
     _speech.initSpeech();
     _speech.addListener(() {
       setState(() {
         text = _speech.speechResult;
       });
     });
-
-  }
-  Future<void> startRecording() async {
-   // Directory appDir = await getApplicationDocumentsDirectory();
-    audioRecord.start(RecordConfig(), path: '${DateTime.now()}/speach');
-
-  }
-
-  Future<void> stopRecording() async {
-    final path = await audioRecord.stop();
-    _filePath =  path!+ '/recording.mp3';
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
   }
 
   @override
@@ -62,8 +41,8 @@ class _MyHomePageState extends State<SpeackingScreen> {
         actions: [
           IconButton(onPressed: (){
             print('object');
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>MySpeakingPractices(speechList)));
-        }, icon: const Icon(Icons.list))],
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>MySpeakingPractices(speechList)));
+          }, icon: const Icon(Icons.list))],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -96,57 +75,16 @@ class _MyHomePageState extends State<SpeackingScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
-          if(_speech.isNotListening){
-            _speech.startListening;
-            startRecording();
-          }else {
-            _speech.stop();
-            stopRecording().then((value) {
-              print('FILE PATH $_filePath');
-            });
-
-          }
-        },
-        // If not yet listening for speech start, otherwise stop: _speech.stop,
+        onPressed:
+        // If not yet listening for speech start, otherwise stop
+        _speech.isNotListening ? _speech.startListening : _speech.stop,
         tooltip: 'Listen',
         child: Icon(_speech.isNotListening ? Icons.mic_off : Icons.mic),
       ),
     );
   }
-
-
-  Future<String?> uploadFile(File file) async {
-    try {
-      String fileName = basename(file.path);
-      Reference firebaseStorageRef =
-      FirebaseStorage.instance.ref().child('audios/$fileName');
-      UploadTask uploadTask = firebaseStorageRef.putFile(file);
-      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-      return downloadUrl;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-
-// Assuming you have a function to retrieve the MP3 file.
-//   Future<File> getMP3File() async {
-//     final url = 'https://www.example.com/example.mp3';
-//     final response = await http.get(url);
-//     final directory = await getApplicationDocumentsDirectory();
-//     final file = File('${directory.path}/example.mp3');
-//     await file.writeAsBytes(response.bodyBytes);
-//     return file;
-//   }
-//
-// // Example usage
-//   void uploadMP3File() async {
-//     File mp3File = await getMP3File();
-//     String downloadUrl = await uploadFile(mp3File);
-//     print("Download URL: $downloadUrl");
-//   }
-
 }
+
+
+
+

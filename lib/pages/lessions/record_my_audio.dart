@@ -78,7 +78,7 @@ class RecorderExampleState extends State<RecorderExample> {
   }
 
      Future<void> _stopRecording() async {
-       print('STOP IS CALLING ');
+       print('STOP IS CALLING NOTHIG');
        try {
          String? path = await audioRecord.stop();
 
