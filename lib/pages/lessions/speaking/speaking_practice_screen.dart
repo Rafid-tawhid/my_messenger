@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -41,7 +43,7 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
         actions: [
           IconButton(onPressed: (){
             print('object');
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>MySpeakingPractices(speechList)));
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>MySpeakingPractices()));
           }, icon: const Icon(Icons.list))],
       ),
       body: Container(
@@ -65,9 +67,26 @@ class _SpeakingScreenState extends State<SpeakingScreen> {
                 : "",style: const TextStyle(fontSize: 16,fontStyle: FontStyle.italic),textAlign: TextAlign.justify,),
             if(text.isNotEmpty)ElevatedButton(onPressed: (){
               speechList.add(text);
-              setState(() {
-                text='';
+
+
+              //save data to firebase
+              FirebaseFirestore.instance.collection('practices').doc(FirebaseAuth.instance.currentUser!.uid).collection('speaking').add({
+                'text': text,
+                'userId':FirebaseAuth.instance.currentUser!.uid,
+                'email':FirebaseAuth.instance.currentUser!.email,
+                'timestamp': Timestamp.now(), // Optionally, you can also save a timestamp
+              }).then((value) {
+                print('Text added to Firestore with ID: ${value.id}');
+                setState(() {
+                  text='';
+                });
+              }).catchError((error) {
+                print('Error adding text to Firestore: $error');
+                setState(() {
+                  text='';
+                });
               });
+
 
 
             }, child: Text('Save')),

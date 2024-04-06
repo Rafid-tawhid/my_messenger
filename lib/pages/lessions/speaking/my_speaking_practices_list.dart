@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:my_messenger/providers/speech_provider.dart';
+import 'package:provider/provider.dart';
 
 class MySpeakingPractices extends StatefulWidget {
-  MySpeakingPractices(this.speechList, {Key? key}) : super(key: key);
-  final List<String> speechList;
+
 
   @override
   State<MySpeakingPractices> createState() => _MySpeakingPracticesState();
@@ -12,13 +13,17 @@ class MySpeakingPractices extends StatefulWidget {
 class _MySpeakingPracticesState extends State<MySpeakingPractices> {
   final FlutterTts _flutterTts = FlutterTts();
   Map? _currentVoice;
-  late List<bool> isPlayingList;
+ //late List<bool> isPlayingList;
+  late SpeechProvider provider;
 
   @override
   void initState() {
     super.initState();
+
     initTTS();
-    isPlayingList = List.filled(widget.speechList.length, false);
+    provider=Provider.of(context,listen: false);
+    provider.getSpeechPractices();
+   // isPlayingList = List.filled(provider.speakingPracList.length, false);
   }
 
   void initTTS() {
@@ -46,32 +51,34 @@ class _MySpeakingPracticesState extends State<MySpeakingPractices> {
       appBar: AppBar(
         title: const Text('My Practices'),
       ),
-      body: ListView.builder(
-        itemCount: widget.speechList.length,
-        itemBuilder: (context, index) => ListTile(
-          title: Text(
-            widget.speechList[index],
-            maxLines: 1,
-          ),
-          leading: Text((index + 1).toString()),
-          trailing: IconButton(
-            onPressed: () {
-              setState(() {
-                isPlayingList[index] = !isPlayingList[index];
-              });
-              if (isPlayingList[index]) {
-                _flutterTts.speak(widget.speechList[index]);
-
-              } else {
-                _flutterTts.stop();
-              }
-            },
-            icon: isPlayingList[index]
-                ? const Icon(Icons.pause)
-                : const Icon(Icons.play_arrow),
+      body: Consumer<SpeechProvider>(
+        builder: (context,pro,_)=>ListView.builder(
+          itemCount: pro.speakingPracList.length,
+          itemBuilder: (context, index) => ListTile(
+            title: Text(
+              pro.speakingPracList[index]['text'],
+              maxLines: 1,
+            ),
+            leading: Text((index + 1).toString()),
+            // trailing: IconButton(
+            //   onPressed: () {
+            //     setState(() {
+            //       isPlayingList[index] = !isPlayingList[index];
+            //     });
+            //     if (isPlayingList[index]) {
+            //       _flutterTts.speak(pro.speakingPracList[index]);
+            //
+            //     } else {
+            //       _flutterTts.stop();
+            //     }
+            //   },
+            //   icon: isPlayingList[index]
+            //       ? const Icon(Icons.pause)
+            //       : const Icon(Icons.play_arrow),
+            // ),
           ),
         ),
-      ),
+      )
     );
   }
 }
