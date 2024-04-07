@@ -24,7 +24,7 @@ class ChatScreenGPT extends StatefulWidget {
 class _ChatScreenGPTState extends State<ChatScreenGPT> {
   final TextEditingController _textController = TextEditingController();
   final List<Map<String, String>> _messages = [];
-  static const String _openAiKey = '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';
+  static const String _openAiKey = 'paste key here from fb';
 
   @override
   Widget build(BuildContext context) {

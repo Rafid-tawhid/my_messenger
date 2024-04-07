@@ -13,7 +13,7 @@ class MySpeakingPractices extends StatefulWidget {
 class _MySpeakingPracticesState extends State<MySpeakingPractices> {
   final FlutterTts _flutterTts = FlutterTts();
   Map? _currentVoice;
- //late List<bool> isPlayingList;
+ late List<bool> isPlayingList;
   late SpeechProvider provider;
 
   @override
@@ -23,7 +23,7 @@ class _MySpeakingPracticesState extends State<MySpeakingPractices> {
     initTTS();
     provider=Provider.of(context,listen: false);
     provider.getSpeechPractices();
-   // isPlayingList = List.filled(provider.speakingPracList.length, false);
+    isPlayingList = List.filled(provider.speakingPracList.length, false);
   }
 
   void initTTS() {
@@ -60,26 +60,26 @@ class _MySpeakingPracticesState extends State<MySpeakingPractices> {
               maxLines: 1,
             ),
             leading: Text((index + 1).toString()),
-            // trailing: IconButton(
-            //   onPressed: () {
-            //     setState(() {
-            //       isPlayingList[index] = !isPlayingList[index];
-            //     });
-            //     if (isPlayingList[index]) {
-            //       _flutterTts.speak(pro.speakingPracList[index]);
-            //
-            //     } else {
-            //       _flutterTts.stop();
-            //     }
-            //   },
-            //   icon: isPlayingList[index]
-            //       ? const Icon(Icons.pause)
-            //       : const Icon(Icons.play_arrow),
+            trailing: IconButton(
+              onPressed: () {
+                setState(() {
+                  isPlayingList[index] = !isPlayingList[index];
+                });
+                if (isPlayingList[index]) {
+                  _flutterTts.speak(pro.speakingPracList[index]['text']);
+
+                } else {
+                  _flutterTts.stop();
+                }
+              },
+              icon: isPlayingList[index]
+                  ? const Icon(Icons.pause)
+                  : const Icon(Icons.play_arrow),
             // ),
           ),
         ),
       )
-    );
+    ));
   }
 }
 
