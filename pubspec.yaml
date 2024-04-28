@@ -66,6 +66,8 @@ dependencies:
   path_provider: ^2.1.2
   free_english_dictionary: ^0.0.3
   flutter_voice_recorder: ^0.0.2
+  camera:
+  gal: ^2.3.0
 
 
 

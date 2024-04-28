@@ -3,6 +3,7 @@ import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
 import 'package:my_messenger/pages/translater_page.dart';
 
+import '../demo_camera.dart';
 import '../utils/temp_db.dart';
 import '../widgets/cards.dart';
 import '../widgets/drawer.dart';
@@ -69,7 +70,8 @@ class _DashboardState extends State<Dashboard> {
               Navigator.pushNamed(context,GrammarGuideScreen.routeName);
             }
             if(value=='Social Features'){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>RecorderExample()));
+           //   Navigator.push(context, MaterialPageRoute(builder: (context)=>RecorderExample()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CameraScreen()));
 
             }
           },);

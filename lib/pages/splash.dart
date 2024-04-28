@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:my_messenger/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/rapid_api.dart';
 import 'auth.dart';
 import 'dashboard.dart';
 
@@ -24,6 +25,8 @@ class SplashScreen extends StatelessWidget {
           }
           if(snapshot.hasData){
             getUserInfo();
+            //get rapid api
+            checkGrammar();
             return const Dashboard();
             //return const ChatScreen();
           }

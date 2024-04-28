@@ -80,7 +80,7 @@ class ResultPage extends StatelessWidget {
                       ),
                     ),
                     style: OutlinedButton.styleFrom(
-                        primary: Color(0xff01BA47),
+
                         shadowColor: Color(0xff01BA47),
                         side: BorderSide(color: Color(0xff01BA47))),
                     onPressed: () {
