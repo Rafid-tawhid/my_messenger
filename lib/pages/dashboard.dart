@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_messenger/pages/progress_tracking.dart';
 import 'package:my_messenger/pages/question_page.dart';
+import 'package:my_messenger/pages/rapid_api_screen.dart';
 import 'package:my_messenger/pages/translater_page.dart';
 
 import '../demo_camera.dart';
@@ -61,7 +62,8 @@ class _DashboardState extends State<Dashboard> {
              Navigator.pushNamed(context,ChatScreen.routeName);
             }
             if(value=='Feedback and Support'){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatGPTApp()));
+             // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatGPTApp()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>RapidApiScreen()));
             }
             if(value=='Progress Tracking'){
               Navigator.pushNamed(context,ProgressTracking.routeName);

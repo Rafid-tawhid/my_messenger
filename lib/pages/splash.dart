@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
           if(snapshot.hasData){
             getUserInfo();
             //get rapid api
-            checkGrammar();
+
             return const Dashboard();
             //return const ChatScreen();
           }

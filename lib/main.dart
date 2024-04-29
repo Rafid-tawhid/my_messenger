@@ -14,6 +14,7 @@ import 'package:my_messenger/pages/question_page.dart';
 import 'package:my_messenger/pages/result_page.dart';
 import 'package:my_messenger/pages/splash.dart';
 import 'package:my_messenger/pages/translater_page.dart';
+import 'package:my_messenger/providers/rapid_provider.dart';
 import 'package:my_messenger/providers/speech_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +77,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=>SpeechProvider())
+        ChangeNotifierProvider(create: (_)=>SpeechProvider()),
+        ChangeNotifierProvider(create: (_)=>RapidProvider()..checkGrammar()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
