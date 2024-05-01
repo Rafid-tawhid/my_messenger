@@ -29,7 +29,7 @@ class RapidProvider extends ChangeNotifier{
         fullResponse=null;
 
         fullResponse=response.body;
-        handleGrammarBotResponse(response.body);
+        handleGrammarBotResponse(jsonEncode(response.body));
       } else {
         // Handle other response codes
         print('Request failed with status: ${response.statusCode}');
@@ -63,4 +63,58 @@ class RapidProvider extends ChangeNotifier{
 //She don't likes to eat vegetables.
 //Susan go to the store everyday
 //We was planning to go on a trip
+//Her are going to the store to buy some apples
 
+//response
+//{
+//   "software": {
+//     "name": "GrammarBot",
+//     "version": "4.3.1",
+//     "apiVersion": 1,
+//     "premium": true,
+//     "premiumHint": "Thanks for supporting GrammarBot!",
+//     "status": ""
+//   },
+//   "warnings": {
+//     "incompleteResults": false
+//   },
+//   "language": {
+//     "name": "English (US)",
+//     "code": "en-US",
+//     "detectedLanguage": {
+//       "name": "English (US)",
+//       "code": "en-US"
+//     }
+//   },
+//   "matches": [
+//     {
+//       "message": "Statistics suggests that 'He' might be the correct word here. Please check.",
+//       "shortMessage": "",
+//       "replacements": [
+//         {
+//           "value": "He"
+//         }
+//       ],
+//       "offset": 0,
+//       "length": 3,
+//       "context": {
+//         "text": "Her are going to the store to buy some appl...",
+//         "offset": 0,
+//         "length": 3
+//       },
+//       "sentence": "Her are going to the store to buy some apples",
+//       "type": {
+//         "typeName": "Other"
+//       },
+//       "rule": {
+//         "id": "CONFUSION_RULE",
+//         "description": "Statistically detect wrong use of words that are easily confused",
+//         "issueType": "non-conformance",
+//         "category": {
+//           "id": "TYPOS",
+//           "name": "Possible Typo"
+//         }
+//       }
+//     }
+//   ]
+// }

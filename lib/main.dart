@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>SpeechProvider()),
-        ChangeNotifierProvider(create: (_)=>RapidProvider()..checkGrammar()),
+        ChangeNotifierProvider(create: (_)=>RapidProvider()..checkGrammar('She don\'t likes to eat vegetables.')),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
