@@ -106,35 +106,63 @@ class _RapidApiScreenState extends State<RapidApiScreen> {
           Consumer<RapidProvider>(
             builder: (context, provider, _) {
               if (provider.grammarCheckResult != null) {
+                // return Expanded(
+                //     child: ListView.builder(
+                //   itemCount: provider.grammarCheckResult!.matches.length,
+                //   itemBuilder: (context, index) {
+                //     final match = provider.grammarCheckResult!.matches[index];
+                //     // return ListTile(
+                //     //   title: Text(
+                //     //     match.message,
+                //     //     style: TextStyle(fontWeight: FontWeight.bold),
+                //     //   ),
+                //     //   subtitle: Column(
+                //     //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     //     children: [
+                //     //       Text('Sentence: ${match.sentence}'),
+                //     //       Text('Mistake: ${provider.grammarCheckResult!.matches.first.shortMessage}'),
+                //     //       // Text(
+                //     //       //     'Offset: ${match.offset}, Length: ${match.length}'),
+                //     //       Text(
+                //     //           'Suggestion: ${match.replacements.isNotEmpty ? match.replacements[0].value : "N/A"}'),
+                //     //     ],
+                //     //   ),
+                //     //   leading: Icon(Icons.error, color: Colors.red),
+                //     //   trailing: Icon(Icons.arrow_forward),
+                //     //   onTap: () {
+                //     //     // Handle tap action
+                //     //   },
+                //     // );
+                //
+                //
+                //   },
+                // ));
+
                 return Expanded(
-                    child: ListView.builder(
-                  itemCount: provider.grammarCheckResult!.matches.length,
-                  itemBuilder: (context, index) {
-                    final match = provider.grammarCheckResult!.matches[index];
-                    return ListTile(
-                      title: Text(
-                        match.message,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  child: ListView(
+                    children: [
+                      // ListTile(
+                      //   title: Text('Software'),
+                      //   subtitle: Text('Name: ${provider.grammarCheckResult!.software.name}\nVersion: ${provider.grammarCheckResult!.software.version}\nAPI Version: ${provider.grammarCheckResult!.software.apiVersion}\nPremium: ${provider.grammarCheckResult!.software.premium}\nPremium Hint: ${provider.grammarCheckResult!.software.premiumHint}\nStatus: ${provider.grammarCheckResult!.software.status}'),
+                      // ),
+                      ListTile(
+                        title: Text('Warnings'),
+                        subtitle: Text('Incomplete Results: ${provider.grammarCheckResult!.warnings.incompleteResults}'),
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Sentence: ${match.sentence}'),
-                          Text('Mistake: ${provider.grammarCheckResult!.matches.first.shortMessage}'),
-                          // Text(
-                          //     'Offset: ${match.offset}, Length: ${match.length}'),
-                          Text(
-                              'Suggestion: ${match.replacements.isNotEmpty ? match.replacements[0].value : "N/A"}'),
-                        ],
+                      ListTile(
+                        title: Text('Language'),
+                        subtitle: Text('Name: ${provider.grammarCheckResult!.language.name}\nDetected Language: ${provider.grammarCheckResult!.language.detectedLanguage.name} (${provider.grammarCheckResult!.language.detectedLanguage.code})'),
                       ),
-                      leading: Icon(Icons.error, color: Colors.red),
-                      trailing: Icon(Icons.arrow_forward),
-                      onTap: () {
-                        // Handle tap action
-                      },
-                    );
-                  },
-                ));
+                      ListTile(
+                        title: Text('Matches (${provider.grammarCheckResult!.matches.length})'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: provider.grammarCheckResult!.matches.map((match) => Text('Message: ${match.message}\nShort Message: ${match.shortMessage}\nContext: ${match.context.text}\nSentence: ${match.sentence}\nType: ${match.type.typeName}\nRule Description: ${match.rule.description}\n')).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               } else {
                 return Text('Nothing to show..');
               }

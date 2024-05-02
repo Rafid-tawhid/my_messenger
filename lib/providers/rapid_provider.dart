@@ -71,6 +71,7 @@ class RapidProvider extends ChangeNotifier{
 //he dog eated my homework
 //He goed to the store yesterday.
 //The cat sleeped on the couch
+//how are you doing
 
 
 

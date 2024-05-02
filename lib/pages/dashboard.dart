@@ -63,13 +63,14 @@ class _DashboardState extends State<Dashboard> {
             }
             if(value=='Feedback and Support'){
              // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatGPTApp()));
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>RapidApiScreen()));
+
             }
             if(value=='Progress Tracking'){
               Navigator.pushNamed(context,ProgressTracking.routeName);
             }
             if(value=='Grammar Guides'){
-              Navigator.pushNamed(context,GrammarGuideScreen.routeName);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>RapidApiScreen()));
+             // Navigator.pushNamed(context,GrammarGuideScreen.routeName);
             }
             if(value=='Social Features'){
            //   Navigator.push(context, MaterialPageRoute(builder: (context)=>RecorderExample()));
