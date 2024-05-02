@@ -6,8 +6,12 @@ import 'package:my_messenger/utils/rapid_api_model.dart';
 
 class RapidProvider extends ChangeNotifier{
 
-  GrammarBotResponse? responseGrammer;
+  Software? software;
+  Warnings? warnings;
+  GrammarCheckResult? grammarCheckResult;
+
   dynamic fullResponse;
+  bool showLoadingBar=false;
 
   Future<void> checkGrammar(String message) async {
     var url = Uri.parse('https://grammarbot.p.rapidapi.com/check');
@@ -20,37 +24,37 @@ class RapidProvider extends ChangeNotifier{
 
     print('SEND BODY: ${body}');
     try {
+      showLoadingBar=true;
       var response = await http.post(url, headers: headers, body: body);
+
+      showLoadingBar=false;
 
       if (response.statusCode == 200) {
         // Handle successful response
-        // print('Response: ${response.body}');
-        responseGrammer=null;
-        fullResponse=null;
-
+         print('Response: ${response.body}');
         fullResponse=response.body;
-        handleGrammarBotResponse(jsonEncode(response.body));
+        handleGrammarBotResponse(fullResponse);
       } else {
         // Handle other response codes
         print('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
+      showLoadingBar=false;
       // Handle exceptions
       print('Exception: $e');
     }
+    notifyListeners();
   }
 
-  void handleGrammarBotResponse(String responseBody) {
+  void handleGrammarBotResponse(dynamic responseBody) {
     // Parse the JSON response
     Map<String, dynamic> jsonResponse = jsonDecode(responseBody);
-
-    // Create a GrammarBotResponse object
-    responseGrammer = GrammarBotResponse.fromJson(jsonResponse);
-    // Printing the message from the first match
-    print(responseGrammer!.matches[0].message);
-
-
-    notifyListeners();
+   try{
+     grammarCheckResult =GrammarCheckResult.fromJson(jsonResponse);
+   }
+   catch(e){
+     print('Somthing Went Wrong ${e}');
+   }
   }
 
   String encodeSentence(String sentence) {
@@ -64,9 +68,15 @@ class RapidProvider extends ChangeNotifier{
 //Susan go to the store everyday
 //We was planning to go on a trip
 //Her are going to the store to buy some apples
+//he dog eated my homework
+//He goed to the store yesterday.
+//The cat sleeped on the couch
+
+
+
 
 //response
-//{
+// {
 //   "software": {
 //     "name": "GrammarBot",
 //     "version": "4.3.1",

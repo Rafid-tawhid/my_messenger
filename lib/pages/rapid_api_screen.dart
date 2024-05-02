@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:my_messenger/providers/rapid_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,7 @@ class _RapidApiScreenState extends State<RapidApiScreen> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final pro = Provider.of<RapidProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('GrammarBot'),
@@ -42,11 +45,13 @@ class _RapidApiScreenState extends State<RapidApiScreen> {
                                       style: TextStyle(fontSize: 22),
                                     ),
                                   ),
-                                  Text(jsonEncode(provider.fullResponse),style: TextStyle(fontWeight: FontWeight.bold),),
+                                  Text(
+                                    provider.fullResponse,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ],
-                              ))
-
-                          ),
+                              ))),
                         );
                       } else {
                         return Text('Nothing to show');
@@ -56,107 +61,86 @@ class _RapidApiScreenState extends State<RapidApiScreen> {
               icon: Icon(Icons.info_outline))
         ],
       ),
-      body: Consumer<RapidProvider>(
-        builder: (context, provider, _) {
-          if (provider.responseGrammer == null) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return Column(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: TextField(
-                            controller: controller,
-                            decoration: InputDecoration(
-                              hintText: 'Search...',
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        border: InputBorder.none,
                       ),
-                      SizedBox(width: 8.0),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (controller.text.isNotEmpty) {
-                            provider.checkGrammar(controller.text.trim());
-                          }
-                        },
-                        child: Icon(Icons.search),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                Text(
-                    'MESSAGE : ${provider.responseGrammer!.matches.first.sentence}'),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: provider.responseGrammer!.matches.length,
-                    itemBuilder: (context, index) {
-                      final match = provider.responseGrammer!.matches[index];
-                      if (provider.responseGrammer!.matches.length == 0) {
-                        return Text('No Data found to show');
-                      } else {
-                        return Card(
-                          margin: EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  match.shortMessage,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.0,
-                                  ),
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  match.message,
-                                  style: TextStyle(fontSize: 16.0),
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Suggested replacements:',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      match.replacements.map((replacement) {
-                                    return Text(
-                                      replacement.value,
-                                      style: TextStyle(fontSize: 16.0),
-                                    );
-                                  }).toList(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                SizedBox(width: 8.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
+                  onPressed: () async {
+                    if (controller.text.isNotEmpty) {
+                      EasyLoading.show();
+                      await pro.checkGrammar(controller.text.trim());
+                      EasyLoading.dismiss();
+                    }
+                  },
+                  child: Icon(Icons.search),
                 ),
               ],
-            );
-          }
-        },
+            ),
+          ),
+          Consumer<RapidProvider>(
+            builder: (context, provider, _) {
+              if (provider.grammarCheckResult != null) {
+                return Expanded(
+                    child: ListView.builder(
+                  itemCount: provider.grammarCheckResult!.matches.length,
+                  itemBuilder: (context, index) {
+                    final match = provider.grammarCheckResult!.matches[index];
+                    return ListTile(
+                      title: Text(
+                        match.message,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Sentence: ${match.sentence}'),
+                          Text('Mistake: ${provider.grammarCheckResult!.matches.first.shortMessage}'),
+                          // Text(
+                          //     'Offset: ${match.offset}, Length: ${match.length}'),
+                          Text(
+                              'Suggestion: ${match.replacements.isNotEmpty ? match.replacements[0].value : "N/A"}'),
+                        ],
+                      ),
+                      leading: Icon(Icons.error, color: Colors.red),
+                      trailing: Icon(Icons.arrow_forward),
+                      onTap: () {
+                        // Handle tap action
+                      },
+                    );
+                  },
+                ));
+              } else {
+                return Text('Nothing to show..');
+              }
+            },
+          ),
+        ],
       ),
     );
     ;
